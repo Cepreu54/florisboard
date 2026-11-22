@@ -124,7 +124,10 @@ fun ImeSystemUiFloating() {
 
     val visible by remember {
         derivedStateOf {
-            windowSpec is ImeWindowSpec.Floating
+            // Custom fork: the floating window caption bar is hidden during normal typing and only
+            // shown while the window editor (resize mode) is active. Resize mode can be toggled with
+            // the "Resize mode" quick action in the smartbar.
+            windowSpec is ImeWindowSpec.Floating && editor.isEnabled
         }
     }
     val showHideAndSwitch by remember {
